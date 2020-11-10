@@ -1,0 +1,28 @@
+﻿[*.cs]
+ Instance fields are camelCase and start with _
+dotnet_naming_rule.instance_fields_should_be_camel_case.severity = suggestion
+dotnet_naming_rule.instance_fields_should_be_camel_case.symbols = instance_fields
+dotnet_naming_rule.instance_fields_should_be_camel_case.style = instance_field_style
+
+dotnet_naming_symbols.instance_fields.applicable_kinds = field
+
+dotnet_naming_style.instance_field_style.capitalization = camel_case
+dotnet_naming_style.instance_field_style.required_prefix = _
+
+#Ident config
+indent_style = space
+indent_size = 4
+
+# Organize usings
+dotnet_separate_import_directive_groups = false
+dotnet_sort_system_directives_first = false
+
+mygenerator_emit_logging2 = true
+
+[*.csproj]
+
+#Ident config
+indent_style = space
+indent_size = 2
+
+mygenerator_emit_logging = true

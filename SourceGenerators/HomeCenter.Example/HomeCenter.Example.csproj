@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
+    <SourceGenerator_EnableLogging>True</SourceGenerator_EnableLogging>
+    <SourceGenerator_EnableDebug>False</SourceGenerator_EnableDebug>
+    
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Test.txt" Type="Text"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HomeCenter.Abstractions\HomeCenter.Abstractions.csproj" />
+    <ProjectReference Include="..\HomeCenter.Actors.Core\HomeCenter.Actors.Core.csproj" />
+    <ProjectReference Include="..\HomeCenter.Messages\HomeCenter.Messages.csproj" />
+    <ProjectReference Include="..\HomeCenter.SourceGenerators\HomeCenter.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+</Project>
