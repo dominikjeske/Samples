@@ -9,7 +9,10 @@ namespace HomeCenter.Extensions
         {
             if (string.IsNullOrWhiteSpace(text)) throw new ArgumentException();
 
-            return float.TryParse(text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out float result) ? (float?)result : null;
+            return float.TryParse(text.Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture,
+                out var result)
+                ? (float?) result
+                : null;
         }
 
         public static string ToFloatString(this double number)

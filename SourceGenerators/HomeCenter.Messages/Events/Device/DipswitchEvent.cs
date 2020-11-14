@@ -4,17 +4,6 @@ namespace HomeCenter.Messages.Events.Device
 {
     public class DipswitchEvent : Event
     {
-        public static DipswitchEvent Create(string mesageSource, string unit, string system, string command)
-        {
-            return new DipswitchEvent()
-            {
-                MessageSource = mesageSource,
-                Unit = unit,
-                System = system,
-                CommandCode = command
-            };
-        }
-
         public string Unit
         {
             get => this.AsString(MessageProperties.Unit);
@@ -31,6 +20,17 @@ namespace HomeCenter.Messages.Events.Device
         {
             get => this.AsString(MessageProperties.CommandCode);
             set => this.SetProperty(MessageProperties.CommandCode, value);
+        }
+
+        public static DipswitchEvent Create(string mesageSource, string unit, string system, string command)
+        {
+            return new DipswitchEvent
+            {
+                MessageSource = mesageSource,
+                Unit = unit,
+                System = system,
+                CommandCode = command
+            };
         }
     }
 }

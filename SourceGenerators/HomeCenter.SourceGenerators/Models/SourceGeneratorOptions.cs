@@ -6,31 +6,17 @@ namespace HomeCenter.SourceGenerators
 {
     internal class SourceGeneratorOptions<T> where T : ISourceGenerator
     {
-        public bool EnableLogging { get; set; }
-
-        public bool DetailedLogging { get; set; }
-
-        public bool EnableDebug { get; set; }
-
-        public string LogPath { get; set; }
-
-        public List<AdditionalFilesOptions> AdditionalFilesOptions { get; set; } = new List<AdditionalFilesOptions>();
-
         public SourceGeneratorOptions(GeneratorExecutionContext context)
         {
-            if (TryReadGlobalOption(context, "SourceGenerator_EnableLogging", out string enableLogging)
+            if (TryReadGlobalOption(context, "SourceGenerator_EnableLogging", out var enableLogging)
                 && bool.TryParse(enableLogging, out var enableLoggingValue))
-            {
                 EnableLogging = enableLoggingValue;
-            }
 
-            if (TryReadGlobalOption(context, "SourceGenerator_DetailedLog", out string detailedLog)
+            if (TryReadGlobalOption(context, "SourceGenerator_DetailedLog", out var detailedLog)
                 && bool.TryParse(detailedLog, out var detailedLogValue))
-            {
                 DetailedLogging = detailedLogValue;
-            }
 
-            if (TryReadGlobalOption(context, "SourceGenerator_LogPath", out string logPath))
+            if (TryReadGlobalOption(context, "SourceGenerator_LogPath", out var logPath))
             {
                 LogPath = logPath;
             }
@@ -41,39 +27,44 @@ namespace HomeCenter.SourceGenerators
                 LogPath = logfile;
             }
 
-            if (TryReadGlobalOption(context, "SourceGenerator_EnableDebug", out string enableDebug)
+            if (TryReadGlobalOption(context, "SourceGenerator_EnableDebug", out var enableDebug)
                 && bool.TryParse(enableDebug, out var enableDebugValue))
-            {
                 EnableDebug = enableDebugValue;
-            }
 
-            if (TryReadGlobalOption(context, $"SourceGenerator_EnableDebug_{typeof(T).Name}", out string debugThisGenerator)
+            if (TryReadGlobalOption(context, $"SourceGenerator_EnableDebug_{typeof(T).Name}",
+                    out var debugThisGenerator)
                 && bool.TryParse(debugThisGenerator, out var debugThisGeneratorValue))
-            {
                 EnableDebug = bool.Parse(debugThisGenerator);
-            }
 
             foreach (var file in context.AdditionalFiles)
-            {
                 if (TryReadAdditionalFilesOption(context, file, "Type", out var type))
-                {
-                    AdditionalFilesOptions.Add(new SourceGenerators.AdditionalFilesOptions
+                    AdditionalFilesOptions.Add(new AdditionalFilesOptions
                     {
                         Type = type,
                         AdditionalText = file
                     });
-                }
-            }
         }
+
+        public bool EnableLogging { get; set; }
+
+        public bool DetailedLogging { get; set; }
+
+        public bool EnableDebug { get; set; }
+
+        public string LogPath { get; set; }
+
+        public List<AdditionalFilesOptions> AdditionalFilesOptions { get; set; } = new List<AdditionalFilesOptions>();
 
         public bool TryReadGlobalOption(GeneratorExecutionContext context, string property, out string value)
         {
             return context.AnalyzerConfigOptions.GlobalOptions.TryGetValue($"build_property.{property}", out value);
         }
 
-        public bool TryReadAdditionalFilesOption(GeneratorExecutionContext context, AdditionalText additionalText, string property, out string value)
+        public bool TryReadAdditionalFilesOption(GeneratorExecutionContext context, AdditionalText additionalText,
+            string property, out string value)
         {
-            return context.AnalyzerConfigOptions.GetOptions(additionalText).TryGetValue($"build_metadata.AdditionalFiles.{property}", out value);
+            return context.AnalyzerConfigOptions.GetOptions(additionalText)
+                .TryGetValue($"build_metadata.AdditionalFiles.{property}", out value);
         }
     }
 }

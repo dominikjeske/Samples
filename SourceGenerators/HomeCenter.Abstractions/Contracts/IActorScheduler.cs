@@ -12,12 +12,15 @@ namespace HomeCenter.Abstractions
 
         Task SendWithSimpleRepeat(ActorMessageContext message, TimeSpan interval, CancellationToken token = default);
 
-        Task SendWithCronRepeat(ActorMessageContext message, string cronExpression, CancellationToken token = default, string calendar = null);
+        Task SendWithCronRepeat(ActorMessageContext message, string cronExpression, CancellationToken token = default,
+            string calendar = null);
 
         Task SendAtTime(ActorMessageContext message, DateTimeOffset time, CancellationToken token = default);
 
-        Task SendDailyAt(ActorMessageContext message, TimeSpan time, CancellationToken token = default, string calendar = null);
+        Task SendDailyAt(ActorMessageContext message, TimeSpan time, CancellationToken token = default,
+            string calendar = null);
 
-        Task SendAfterDelay(ActorMessageContext message, TimeSpan delay, bool cancelExisting = true, CancellationToken token = default);
+        Task SendAfterDelay(ActorMessageContext message, TimeSpan delay, bool cancelExisting = true,
+            CancellationToken token = default);
     }
 }

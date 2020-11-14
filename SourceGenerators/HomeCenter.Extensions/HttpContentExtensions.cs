@@ -27,7 +27,6 @@ namespace HomeCenter.Extensions
             var encoding = defaultEncoding;
             var charset = content.Headers.ContentType.CharSet;
             if (!string.IsNullOrEmpty(charset))
-            {
                 try
                 {
                     encoding = Encoding.GetEncoding(charset);
@@ -36,7 +35,6 @@ namespace HomeCenter.Extensions
                 {
                     encoding = defaultEncoding;
                 }
-            }
 
             return encoding;
         }

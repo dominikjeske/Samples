@@ -57,13 +57,15 @@ namespace HomeCenter
             return baseObject;
         }
 
-        public static BaseObject SetProperty(this BaseObject baseObject, string propertyName, IDictionary<string, string> value)
+        public static BaseObject SetProperty(this BaseObject baseObject, string propertyName,
+            IDictionary<string, string> value)
         {
             baseObject[propertyName] = JsonSerializer.Serialize(value);
             return baseObject;
         }
 
-        public static BaseObject SetPropertyList(this BaseObject baseObject, string propertyName, params string[] values)
+        public static BaseObject SetPropertyList(this BaseObject baseObject, string propertyName,
+            params string[] values)
         {
             baseObject[propertyName] = string.Join(", ", values);
             return baseObject;
@@ -75,7 +77,8 @@ namespace HomeCenter
             return baseObject;
         }
 
-        public static BaseObject SetProperty<T>(this BaseObject baseObject, string propertyName, T value) where T : class
+        public static BaseObject SetProperty<T>(this BaseObject baseObject, string propertyName, T value)
+            where T : class
         {
             value = value.MustNotBeNull(nameof(value));
 
@@ -85,10 +88,7 @@ namespace HomeCenter
 
         public static BaseObject SetProperties(this BaseObject baseObject, BaseObject source)
         {
-            foreach (var property in source.GetProperties())
-            {
-                baseObject.SetProperty(property.Key, property.Value);
-            }
+            foreach (var property in source.GetProperties()) baseObject.SetProperty(property.Key, property.Value);
             return baseObject;
         }
     }

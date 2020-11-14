@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace HomeCenter.Abstractions
 {
     public class InitializationException : Exception
     {
-        public InitializationException() : base()
+        public InitializationException()
         {
         }
 
-        protected InitializationException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context)
+        protected InitializationException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
 

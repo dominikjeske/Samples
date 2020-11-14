@@ -1,4 +1,5 @@
 ﻿using HomeCenter.Extensions;
+using Proto;
 using System;
 using System.Text.Json.Serialization;
 
@@ -6,8 +7,7 @@ namespace HomeCenter.Abstractions
 {
     public abstract class ActorMessage : BaseObject, IEquatable<ActorMessage>
     {
-        [JsonIgnore]
-        public Proto.IContext Context { get; set; }
+        [JsonIgnore] public IContext Context { get; set; }
 
         public string LogLevel
         {

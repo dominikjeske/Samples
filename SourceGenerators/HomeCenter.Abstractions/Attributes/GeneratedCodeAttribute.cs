@@ -3,9 +3,9 @@
 namespace HomeCenter.Abstractions
 {
     /// <summary>
-    /// Added to all generated classes
+    ///     Added to all generated classes
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class)]
     public class GeneratedCodeAttribute : Attribute
     {
     }

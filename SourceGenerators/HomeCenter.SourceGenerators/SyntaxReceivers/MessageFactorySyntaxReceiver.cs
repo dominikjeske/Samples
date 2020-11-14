@@ -11,10 +11,8 @@ namespace HomeCenter.SourceGenerators
 
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
-            if (syntaxNode is ClassDeclarationSyntax classSyntax && classSyntax.HaveAttribute(CommandBuilderAttribute.Name))
-            {
-                CandidateProxies.Add(classSyntax);
-            }
+            if (syntaxNode is ClassDeclarationSyntax classSyntax &&
+                classSyntax.HaveAttribute(CommandBuilderAttribute.Name)) CandidateProxies.Add(classSyntax);
         }
     }
 }

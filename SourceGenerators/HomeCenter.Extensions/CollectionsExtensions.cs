@@ -27,14 +27,17 @@ namespace HomeCenter.Extensions
 
         public static void ForEach<T>(this IEnumerable<T> collection, Action<T> action)
         {
-            foreach (T item in collection) action(item);
+            foreach (var item in collection) action(item);
         }
 
-        public static bool InvariantContains(this IEnumerable<string> stringList, string comparedString) => stringList.Any(x => x.InvariantEquals(comparedString));
+        public static bool InvariantContains(this IEnumerable<string> stringList, string comparedString)
+        {
+            return stringList.Any(x => x.InvariantEquals(comparedString));
+        }
 
         public static IEnumerable<T> Flatten<T>(
-        this IEnumerable<T> items,
-        Func<T, IEnumerable<T>> getChildren)
+            this IEnumerable<T> items,
+            Func<T, IEnumerable<T>> getChildren)
         {
             if (items == null)
                 yield break;
@@ -77,6 +80,7 @@ namespace HomeCenter.Extensions
                         stack.Push(e);
                         e = elements.GetEnumerator();
                     }
+
                     if (stack.Count == 0) break;
                     e.Dispose();
                     e = stack.Pop();
@@ -91,10 +95,7 @@ namespace HomeCenter.Extensions
 
         public static void RemoveRange<TKey, TValue>(this IDictionary<TKey, TValue> dic, IEnumerable<TKey> toRemove)
         {
-            foreach (var el in toRemove)
-            {
-                dic.Remove(el);
-            }
+            foreach (var el in toRemove) dic.Remove(el);
         }
 
         public static string ToFormatedString<TKey, TValue>(this IDictionary<TKey, TValue> dic)
@@ -109,12 +110,20 @@ namespace HomeCenter.Extensions
             return def;
         }
 
-        public static void AddRangeNewOnly<TKey, TValue>(this IDictionary<TKey, TValue> dic, IDictionary<TKey, TValue> dicToAdd)
+        public static void AddRangeNewOnly<TKey, TValue>(this IDictionary<TKey, TValue> dic,
+            IDictionary<TKey, TValue> dicToAdd)
         {
-            dicToAdd.ForEach(x => { if (!dic.ContainsKey(x.Key)) dic.Add(x.Key, x.Value); });
+            dicToAdd.ForEach(x =>
+            {
+                if (!dic.ContainsKey(x.Key)) dic.Add(x.Key, x.Value);
+            });
         }
 
-        public static ReadOnlyDictionary<TKey, TValue> AsReadOnly<TKey, TValue>(this IDictionary<TKey, TValue> dictionary) => new ReadOnlyDictionary<TKey, TValue>(dictionary);
+        public static ReadOnlyDictionary<TKey, TValue> AsReadOnly<TKey, TValue>(
+            this IDictionary<TKey, TValue> dictionary)
+        {
+            return new ReadOnlyDictionary<TKey, TValue>(dictionary);
+        }
 
         public static bool IsEqual(this Dictionary<string, object> source, Dictionary<string, object> dest)
         {
@@ -128,15 +137,17 @@ namespace HomeCenter.Extensions
                 //TODO check this
                 if (dest[attribute.Key].ToString().Compare(attribute.Value.ToString()) != 0) return false;
             }
+
             return true;
         }
 
         public static void ForEach<T>(this IReadOnlyCollection<T> collection, Action<T> action)
         {
-            foreach (T item in collection) action(item);
+            foreach (var item in collection) action(item);
         }
 
-        public static bool LeftEqual<T, K>(this IReadOnlyDictionary<T, K> source, IReadOnlyDictionary<T, K> dest) where T : class where K : class
+        public static bool LeftEqual<T, K>(this IReadOnlyDictionary<T, K> source, IReadOnlyDictionary<T, K> dest)
+            where T : class where K : class
         {
             if (ReferenceEquals(source, dest)) return true;
 
@@ -145,9 +156,13 @@ namespace HomeCenter.Extensions
                 if (!dest.ContainsKey(attribute.Key)) return false;
                 if (!dest[attribute.Key].Equals(attribute.Value)) return false;
             }
+
             return true;
         }
 
-        public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dict) => dict.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dict)
+        {
+            return dict.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        }
     }
 }

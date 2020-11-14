@@ -16,6 +16,9 @@ namespace HomeCenter.Messages.Commands.Service
             set => this.SetProperty(nameof(Body), value);
         }
 
-        public static I2cCommand Create(int address, byte[] data) => new I2cCommand { Address = address, Body = data };
+        public static I2cCommand Create(int address, byte[] data)
+        {
+            return new I2cCommand {Address = address, Body = data};
+        }
     }
 }

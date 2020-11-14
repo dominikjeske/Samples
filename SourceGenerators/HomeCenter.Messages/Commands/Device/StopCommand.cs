@@ -6,6 +6,9 @@ namespace HomeCenter.Messages.Commands.Device
     {
         public static StopCommand Default = new StopCommand();
 
-        public static StopCommand Create(string context) => (StopCommand)new StopCommand().SetProperty(MessageProperties.Context, context);
+        public static StopCommand Create(string context)
+        {
+            return (StopCommand) new StopCommand().SetProperty(MessageProperties.Context, context);
+        }
     }
 }

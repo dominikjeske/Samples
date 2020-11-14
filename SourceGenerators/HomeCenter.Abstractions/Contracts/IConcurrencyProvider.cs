@@ -3,7 +3,7 @@
 namespace HomeCenter.Abstractions
 {
     /// <summary>
-    /// Provides provider for IScheduler - it helps to "mock time" in unit tests
+    ///     Provides provider for IScheduler - it helps to "mock time" in unit tests
     /// </summary>
     public interface IConcurrencyProvider
     {

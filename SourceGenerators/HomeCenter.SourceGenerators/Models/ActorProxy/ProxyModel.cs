@@ -27,10 +27,11 @@ namespace HomeCenter.SourceGenerators
 
         public List<SubscriptionDescriptor> Subscriptions { get; set; } = new List<SubscriptionDescriptor>();
 
-        public IEnumerable<ParameterDescriptor> Constructor => ConstructorParameters.Concat(InjectedProperties.Select(x => x.ToCamelCase()));
+        public IEnumerable<ParameterDescriptor> Constructor =>
+            ConstructorParameters.Concat(InjectedProperties.Select(x => x.ToCamelCase()));
 
         public IEnumerable<string> BaseConstructor => ConstructorParameters.Select(x => x.Name);
 
         public bool HasSubscriptions => Subscriptions.Count > 0;
-    };
+    }
 }

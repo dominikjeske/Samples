@@ -8,6 +8,7 @@ namespace HomeCenter.EventAggregator
 {
     public interface IEventAggregator
     {
+        Func<BehaviorChain> DefaultBehavior { get; set; }
         void ClearSubscriptions();
 
         bool IsSubscribed(Guid token);
@@ -24,11 +25,10 @@ namespace HomeCenter.EventAggregator
 
         SubscriptionToken SubscribeAsync<T>(Func<IMessageEnvelope<T>, Task> action, RoutingFilter filter = null);
 
-        SubscriptionToken SubscribeForAsyncResult<T>(Func<IMessageEnvelope<T>, Task<object>> action, RoutingFilter filter = null);
+        SubscriptionToken SubscribeForAsyncResult<T>(Func<IMessageEnvelope<T>, Task<object>> action,
+            RoutingFilter filter = null);
 
         IObservable<IMessageEnvelope<T>> Observe<T>(RoutingFilter routingFilter = null);
-
-        Func<BehaviorChain> DefaultBehavior { get; set; }
 
         Task<R> QueryAsync<T, R>
         (

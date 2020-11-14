@@ -8,6 +8,9 @@ namespace HomeCenter.Abstractions
 
         public bool IsInverted => false;
 
-        public Task<bool> Validate() => Task.FromResult(true);
+        public Task<bool> Validate()
+        {
+            return Task.FromResult(true);
+        }
     }
 }

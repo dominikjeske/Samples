@@ -28,6 +28,9 @@ namespace HomeCenter.Messages.Commands.Device
             set => this.SetProperty(nameof(Repeat), value);
         }
 
-        public static SendCodeCommand Create(uint code, int system = 7, int bits = 32, int repeat = 1) => new SendCodeCommand { Code = code, System = system, Bits = bits, Repeat = repeat };
+        public static SendCodeCommand Create(uint code, int system = 7, int bits = 32, int repeat = 1)
+        {
+            return new SendCodeCommand {Code = code, System = system, Bits = bits, Repeat = repeat};
+        }
     }
 }

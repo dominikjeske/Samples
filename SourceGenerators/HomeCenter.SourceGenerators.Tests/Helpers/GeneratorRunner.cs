@@ -12,17 +12,19 @@ namespace HomeCenter.SourceGenerators.Tests
     {
         private static Compilation CreateCompilation(string source)
         {
-            var syntaxTrees = new[] 
-            { 
-                CSharpSyntaxTree.ParseText(source, new CSharpParseOptions(LanguageVersion.Preview)) 
+            var syntaxTrees = new[]
+            {
+                CSharpSyntaxTree.ParseText(source, new CSharpParseOptions(LanguageVersion.Preview))
             };
 
             var references = new List<PortableExecutableReference>();
-            foreach (var library in DependencyContext.Default.RuntimeLibraries.Where(lib => lib.Name.IndexOf("HomeCenter.") > -1))
+            foreach (var library in DependencyContext.Default.RuntimeLibraries.Where(lib =>
+                lib.Name.IndexOf("HomeCenter.") > -1))
             {
                 var assembly = Assembly.Load(new AssemblyName(library.Name));
                 references.Add(MetadataReference.CreateFromFile(assembly.Location));
             }
+
             references.Add(MetadataReference.CreateFromFile(typeof(Binder).GetTypeInfo().Assembly.Location));
 
             var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
@@ -30,14 +32,14 @@ namespace HomeCenter.SourceGenerators.Tests
 
             return compilation;
         }
+
         public static GeneratorResult Run(string sourceCode, ISourceGenerator generators)
         {
-            Compilation compilation = CreateCompilation(sourceCode);
+            var compilation = CreateCompilation(sourceCode);
 
             var driver = CSharpGeneratorDriver.Create(ImmutableArray.Create(generators),
-                                                      ImmutableArray<AdditionalText>.Empty,
-                                                      (CSharpParseOptions)compilation.SyntaxTrees.First().Options,
-                                                      null);
+                ImmutableArray<AdditionalText>.Empty,
+                (CSharpParseOptions) compilation.SyntaxTrees.First().Options);
             driver.RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out var diagnostics);
 
 
@@ -48,7 +50,8 @@ namespace HomeCenter.SourceGenerators.Tests
 
         private static string GetGeneratedCode(ISourceGenerator generators, Compilation outputCompilation)
         {
-            return outputCompilation.SyntaxTrees.FirstOrDefault(file => file.FilePath.IndexOf(generators.GetType().Name) > -1)?.ToString();
+            return outputCompilation.SyntaxTrees
+                .FirstOrDefault(file => file.FilePath.IndexOf(generators.GetType().Name) > -1)?.ToString();
         }
     }
 }

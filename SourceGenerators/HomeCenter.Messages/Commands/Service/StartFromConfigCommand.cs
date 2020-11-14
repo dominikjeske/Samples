@@ -16,6 +16,9 @@ namespace HomeCenter.Messages.Commands.Service
             set => this.SetProperty(nameof(Configuration), value);
         }
 
-        public static StartSystemCommand Create(string configuration, string mode = "Embedded") => new StartSystemCommand { AdapterMode = mode, Configuration = configuration };
+        public static StartSystemCommand Create(string configuration, string mode = "Embedded")
+        {
+            return new StartSystemCommand {AdapterMode = mode, Configuration = configuration};
+        }
     }
 }

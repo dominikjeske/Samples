@@ -23,17 +23,16 @@ namespace HomeCenter.SourceGenerators
             using var sourceGenContext = SourceGeneratorContext<ActorProxySourceGenerator>.Create(context);
 
             if (context.SyntaxReceiver is ActorSyntaxReceiver actorSyntaxReciver)
-            {
                 foreach (var proxy in actorSyntaxReciver.CandidateProxies)
                 {
                     var source = GenearteProxy(proxy, sourceGenContext);
 
                     context.AddSource(source.FileName, SourceText.From(source.SourceCode, Encoding.UTF8));
                 }
-            }
         }
 
-        private GeneratedSource GenearteProxy(ClassDeclarationSyntax proxy, SourceGeneratorContext<ActorProxySourceGenerator> context)
+        private GeneratedSource GenearteProxy(ClassDeclarationSyntax proxy,
+            SourceGeneratorContext<ActorProxySourceGenerator> context)
         {
             try
             {
@@ -121,14 +120,15 @@ namespace HomeCenter.SourceGenerators
 
         private bool IsSubscribeOnParent(MethodDescription methodDescription)
         {
-            return methodDescription.Attributes.Where(a => a.Name == "Subscribe").Any(x => x.Values.Any(val => val.IndexOf("true", StringComparison.OrdinalIgnoreCase) > -1));
+            return methodDescription.Attributes.Where(a => a.Name == "Subscribe").Any(x =>
+                x.Values.Any(val => val.IndexOf("true", StringComparison.OrdinalIgnoreCase) > -1));
         }
 
         private List<ParameterDescriptor> GetConstructor(INamedTypeSymbol classSymbol)
         {
-            IMethodSymbol baseConstructor = classSymbol.Constructors.OrderByDescending(p => p.Parameters.Length).FirstOrDefault();
+            var baseConstructor = classSymbol.Constructors.OrderByDescending(p => p.Parameters.Length).FirstOrDefault();
 
-            var parList = baseConstructor.Parameters.Select(par => new ParameterDescriptor()
+            var parList = baseConstructor.Parameters.Select(par => new ParameterDescriptor
             {
                 Name = par.Name,
                 Type = par.Type.ToString()
@@ -140,48 +140,53 @@ namespace HomeCenter.SourceGenerators
         private List<PropertyAssignDescriptor> GetInjectedProperties(INamedTypeSymbol classSymbol)
         {
             var dependencyProperties = classSymbol.GetAllMembers()
-                                                  .Where(x => x.Kind == SymbolKind.Property && x.GetAttributes().Any(a => a.AttributeClass.Name == nameof(DIAttribute)))
-                                                  .OfType<IPropertySymbol>()
-                                                  .Select(par => new PropertyAssignDescriptor()
-                                                  {
-                                                      Destination = par.Name,
-                                                      Type = par.Type.ToString(),
-                                                      Source = par.Name.ToCamelCase()
-                                                  }).ToList();
+                .Where(x => x.Kind == SymbolKind.Property &&
+                            x.GetAttributes().Any(a => a.AttributeClass.Name == nameof(DIAttribute)))
+                .OfType<IPropertySymbol>()
+                .Select(par => new PropertyAssignDescriptor
+                {
+                    Destination = par.Name,
+                    Type = par.Type.ToString(),
+                    Source = par.Name.ToCamelCase()
+                }).ToList();
             return dependencyProperties;
         }
 
-        private List<MethodDescription> GetMethodWithParameter(ClassDeclarationSyntax classSyntax, SemanticModel model, string parameterType, string attributeType = null)
+        private List<MethodDescription> GetMethodWithParameter(ClassDeclarationSyntax classSyntax, SemanticModel model,
+            string parameterType, string attributeType = null)
         {
             var filter = classSyntax.DescendantNodes()
-                                    .OfType<MethodDeclarationSyntax>()
-                                    .Where(m => m.ParameterList.Parameters.Count == 1 && !m.Modifiers.Any(x => x.ValueText == "private"));
+                .OfType<MethodDeclarationSyntax>()
+                .Where(m => m.ParameterList.Parameters.Count == 1 && !m.Modifiers.Any(x => x.ValueText == "private"));
 
             if (attributeType != null)
-            {
-                filter = filter.Where(m => m.AttributeLists.Any(a => a.Attributes.Any(x => x.Name.ToString() == attributeType)));
-            }
+                filter = filter.Where(m =>
+                    m.AttributeLists.Any(a => a.Attributes.Any(x => x.Name.ToString() == attributeType)));
 
             var result = filter.Select(method => new
-            {
-                Name = method.Identifier.ValueText,
-                ReturnType = model.GetTypeInfo(method.ReturnType).Type as INamedTypeSymbol,
-                Parameter = model.GetDeclaredSymbol(method.ParameterList.Parameters.FirstOrDefault()),
-                Attributes = method.AttributeLists.SelectMany(a => a.Attributes.Select(ax => new AttributeDescriptor
                 {
-                    Name = ax.Name.ToString(),
-                    Values = (ax?.ArgumentList?.Arguments.Select(x => x.Expression.ToFullString()) ?? Enumerable.Empty<string>()).ToList()
-                }))
-            }).Where(x => x.Parameter.Type.BaseType?.Name == parameterType || x.Parameter.Type.BaseType?.BaseType?.Name == parameterType || x.Parameter.Type.Name == parameterType)
-            .Select(c => new MethodDescription
-            {
-                MethodName = c.Name,
-                ParameterType = c.Parameter.Type.Name,
-                ReturnType = c.ReturnType.Name,
-                ReturnTypeGenericArgument = c.ReturnType.TypeArguments.FirstOrDefault()?.ToString(),
-                Attributes = c.Attributes.ToList()
-                // TODO write recursive base type check
-            }).ToList();
+                    Name = method.Identifier.ValueText,
+                    ReturnType = model.GetTypeInfo(method.ReturnType).Type as INamedTypeSymbol,
+                    Parameter = model.GetDeclaredSymbol(method.ParameterList.Parameters.FirstOrDefault()),
+                    Attributes = method.AttributeLists.SelectMany(a => a.Attributes.Select(ax => new AttributeDescriptor
+                    {
+                        Name = ax.Name.ToString(),
+                        Values = (ax?.ArgumentList?.Arguments.Select(x => x.Expression.ToFullString()) ??
+                                  Enumerable.Empty<string>()).ToList()
+                    }))
+                }).Where(x =>
+                    x.Parameter.Type.BaseType?.Name == parameterType ||
+                    x.Parameter.Type.BaseType?.BaseType?.Name == parameterType ||
+                    x.Parameter.Type.Name == parameterType)
+                .Select(c => new MethodDescription
+                {
+                    MethodName = c.Name,
+                    ParameterType = c.Parameter.Type.Name,
+                    ReturnType = c.ReturnType.Name,
+                    ReturnTypeGenericArgument = c.ReturnType.TypeArguments.FirstOrDefault()?.ToString(),
+                    Attributes = c.Attributes.ToList()
+                    // TODO write recursive base type check
+                }).ToList();
 
             return result;
         }

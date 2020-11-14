@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using HomeCenter.Abstractions;
+﻿using HomeCenter.Abstractions;
 using HomeCenter.Abstractions.Defaults;
 using HomeCenter.EventAggregator;
 using HomeCenter.Messages.Events.Service;
@@ -11,14 +6,29 @@ using HomeCenter.Messages.Queries;
 using Microsoft.Extensions.Logging;
 using Proto;
 using Proto.Mailbox;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Behavior = Proto.Behavior;
 
 namespace HomeCenter.Actors.Core
 {
     public abstract class DeviceActor : BaseObject, IActor
     {
+        protected readonly Behavior Behavior = new Behavior();
+
+        protected DisposeContainer _disposables = new DisposeContainer();
+
+        protected DeviceActor()
+        {
+            Behavior.Become(StandardMode);
+        }
+
         [DI] protected IMessageBroker MessageBroker { get; set; }
         [DI] protected ILogger Logger { get; set; }
+
         public bool IsEnabled
         {
             get => this.AsBool(MessageProperties.IsEnabled, true);
@@ -31,41 +41,26 @@ namespace HomeCenter.Actors.Core
             set => this.SetPropertyList(MessageProperties.Tags, value.ToArray());
         }
 
-        protected readonly Behavior Behavior = new Behavior();
-
-        protected DisposeContainer _disposables = new DisposeContainer();
         protected PID Self { get; private set; }
-
-        //Add resource to container that will be released when actor is about to be released
-        protected void ProtectResource(IDisposable resource) => _disposables.Add(resource);
 
         protected CancellationToken Token => _disposables.Token;
 
-        protected DeviceActor()
-        {
-            Behavior.Become(StandardMode);
-        }
-
         public Task ReceiveAsync(IContext context)
         {
-            try
-            {
-                //MessageBroker.SendAfterDelay
+            //MessageBroker.SendAfterDelay
 
-                return Behavior.ReceiveAsync(context);
-            }
-            catch (Exception rr)
-            {
-                throw;
-            }
+            return Behavior.ReceiveAsync(context);
+        }
+
+        //Add resource to container that will be released when actor is about to be released
+        protected void ProtectResource(IDisposable resource)
+        {
+            _disposables.Add(resource);
         }
 
         protected void Log(EventId eventId, string template = "", params object[] arguments)
         {
-            if (string.IsNullOrEmpty(template))
-            {
-                template = eventId.Name;
-            }
+            if (string.IsNullOrEmpty(template)) template = eventId.Name;
 
             template = "[{Uid}] " + template;
             var args = new List<object>(arguments);
@@ -74,7 +69,10 @@ namespace HomeCenter.Actors.Core
             Logger.LogInformation(eventId, template, args.ToArray());
         }
 
-        protected Task StandardMode(IContext context) => ReceiveAsyncInternal(context);
+        protected Task StandardMode(IContext context)
+        {
+            return ReceiveAsyncInternal(context);
+        }
 
         protected void Become(Receive receive)
         {
@@ -83,26 +81,24 @@ namespace HomeCenter.Actors.Core
             Behavior.Become(receive);
         }
 
-        protected virtual Task ReceiveAsyncInternal(IContext context) => Task.CompletedTask;
+        protected virtual Task ReceiveAsyncInternal(IContext context)
+        {
+            return Task.CompletedTask;
+        }
 
         protected virtual Task UnhandledMessage(object message)
         {
             if (message is ActorMessage actorMessage)
-            {
-                throw new ArgumentException($"Component [{Uid}] cannot process message because there is no registered handler for [{actorMessage.Type ?? actorMessage.GetType().Name}]");
-            }
-            else
-            {
-                throw new ArgumentException($"Component [{Uid}] cannot process message because type {message.GetType().Name} is not ActorMessage");
-            }
+                throw new ArgumentException(
+                    $"Component [{Uid}] cannot process message because there is no registered handler for [{actorMessage.Type ?? actorMessage.GetType().Name}]");
+            throw new ArgumentException(
+                $"Component [{Uid}] cannot process message because type {message.GetType().Name} is not ActorMessage");
         }
 
         protected object FormatMessage(object rawMessage)
         {
             if (rawMessage is ActorMessage message)
-            {
                 Log(ActorEventType.Messagee, "Incoming message '{message}'", message);
-            }
 
             return rawMessage;
         }
@@ -122,32 +118,38 @@ namespace HomeCenter.Actors.Core
                 await OnStarted(context);
                 return true;
             }
-            else if (msg is Restarting)
+
+            if (msg is Restarting)
             {
                 await OnRestarting(context);
                 return true;
             }
-            else if (msg is Restart)
+
+            if (msg is Restart)
             {
                 await OnRestart(context);
                 return true;
             }
-            else if (msg is Stop)
+
+            if (msg is Stop)
             {
                 await OnStop(context);
                 return true;
             }
-            else if (msg is Stopped)
+
+            if (msg is Stopped)
             {
                 await OnStopped(context);
                 return true;
             }
-            else if (msg is Stopping)
+
+            if (msg is Stopping)
             {
                 await Stopping(context);
                 return true;
             }
-            else if (msg is SystemMessage)
+
+            if (msg is SystemMessage)
             {
                 await OtherSystemMessage(context);
                 return true;
@@ -166,10 +168,7 @@ namespace HomeCenter.Actors.Core
             }
 
             // If actor is disabled we are ignoring all non system messages
-            if (!IsEnabled)
-            {
-                return true;
-            }
+            if (!IsEnabled) return true;
 
             return false;
         }

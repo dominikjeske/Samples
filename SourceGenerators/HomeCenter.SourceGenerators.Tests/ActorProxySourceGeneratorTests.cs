@@ -29,5 +29,4 @@ namespace HomeCenter.SourceGenerators.Tests
         //    expectedResult.AssertSourceCodesEquals(result.GeneratedCode);
         //}
     }
-
 }

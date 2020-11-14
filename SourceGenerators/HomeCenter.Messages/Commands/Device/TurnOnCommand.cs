@@ -6,6 +6,9 @@ namespace HomeCenter.Messages.Commands.Device
     {
         public static TurnOnCommand Default = new TurnOnCommand();
 
-        public static TurnOnCommand Create(int stateTime) => (TurnOnCommand)new TurnOnCommand().SetProperty(MessageProperties.StateTime, stateTime);
+        public static TurnOnCommand Create(int stateTime)
+        {
+            return (TurnOnCommand) new TurnOnCommand().SetProperty(MessageProperties.StateTime, stateTime);
+        }
     }
 }

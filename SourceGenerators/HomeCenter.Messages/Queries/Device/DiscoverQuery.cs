@@ -12,9 +12,7 @@ namespace HomeCenter.Messages.Queries.Device
             var query = new DiscoverQuery();
             //TODO check this
             foreach (var property in parent.GetProperties().Where(p => p.Value != null))
-            {
                 query[property.Key] = property.Value;
-            }
             return query;
         }
     }

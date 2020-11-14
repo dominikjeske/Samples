@@ -4,8 +4,7 @@ namespace HomeCenter.Abstractions
 {
     public interface IValidable
     {
-        Task<bool> Validate();
-
         bool IsInverted { get; }
+        Task<bool> Validate();
     }
 }

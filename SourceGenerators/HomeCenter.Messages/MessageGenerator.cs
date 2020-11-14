@@ -1,9 +1,6 @@
-﻿
-
-namespace HomeCenter.Messages
+﻿namespace HomeCenter.Messages
 {
-
-    public partial class MessageGenerator
+    public class MessageGenerator
     {
     }
 }

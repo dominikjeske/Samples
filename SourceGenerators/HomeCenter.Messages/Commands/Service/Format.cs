@@ -4,9 +4,9 @@ namespace HomeCenter.Messages.Commands.Service
 {
     public class Format
     {
-        public Type ValueType;
-        public string ValueName;
         public int Lp;
+        public string ValueName;
+        public Type ValueType;
 
         public Format(int lp, Type valueType, string valueName)
         {

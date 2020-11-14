@@ -12,18 +12,18 @@ namespace HomeCenter.SourceGenerators
         {
             var template = Template.Parse(templateString);
 
-            if(template.HasErrors)
+            if (template.HasErrors)
             {
                 var errors = string.Join(" | ", template.Messages.Select(x => x.Message));
                 throw new InvalidOperationException($"Template parse error: {template.Messages}");
             }
 
-            var result = template.Render(model, memberRenamer: member => member.Name);
+            var result = template.Render(model, member => member.Name);
 
             result = SyntaxFactory.ParseCompilationUnit(result)
-                                  .NormalizeWhitespace()
-                                  .GetText()
-                                  .ToString();
+                .NormalizeWhitespace()
+                .GetText()
+                .ToString();
 
             return result;
         }

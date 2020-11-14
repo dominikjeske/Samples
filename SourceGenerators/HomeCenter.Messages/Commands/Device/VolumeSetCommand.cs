@@ -4,6 +4,12 @@ namespace HomeCenter.Messages.Commands.Device
 {
     public class VolumeSetCommand : Command
     {
+        public double Value
+        {
+            get => this.AsDouble(MessageProperties.Value);
+            set => this.SetProperty(MessageProperties.Value, value);
+        }
+
         public static VolumeSetCommand Create(double volume)
         {
             var command = new VolumeSetCommand
@@ -11,12 +17,6 @@ namespace HomeCenter.Messages.Commands.Device
                 Value = volume
             };
             return command;
-        }
-
-        public double Value
-        {
-            get => this.AsDouble(MessageProperties.Value);
-            set => this.SetProperty(MessageProperties.Value, value);
         }
     }
 }

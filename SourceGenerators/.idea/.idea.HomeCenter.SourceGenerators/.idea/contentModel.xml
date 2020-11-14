@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\domin\.nuget\packages\microsoft.net.test.sdk\16.8.0\build\netcoreapp2.1" t="Include">
+      <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
+    </e>
+    <e p="C:\Users\domin\.nuget\packages\microsoft.testplatform.testhost\16.8.0\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
+    <e p="C:\Users\domin\.nuget\packages\microsoft.testplatform.testhost\16.8.0\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
+    <e p="C:\Users\domin\.nuget\packages\xunit.runner.visualstudio\2.4.3\build\netcoreapp2.1\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\domin\.nuget\packages\xunit.runner.visualstudio\2.4.3\build\netcoreapp2.1\xunit.runner.utility.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\domin\.nuget\packages\xunit.runner.visualstudio\2.4.3\build\netcoreapp2.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
+    <e p="C:\Users\domin\AppData\Local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\domin\AppData\Local\JetBrains\Rider2020.3\resharper-host\Local\Transient\Rider\v203\SolutionCaches\_HomeCenter.SourceGenerators.251834703.00" t="ExcludeRecursive" />
+    <e p="E:\Projects\Samples\Samples\SourceGenerators" t="IncludeFlat">
+      <e p=".editorconfig" t="Include" />
+      <e p="Directory.Build.targets" t="Include" />
+      <e p="HomeCenter.Abstractions" t="IncludeRecursive">
+        <e p="Attributes" t="Include">
+          <e p="CommandBuilderAttribute.cs" t="Include" />
+          <e p="DIAttribute.cs" t="Include" />
+          <e p="GeneratedCodeAttribute.cs" t="Include" />
+          <e p="ProxyAttribute.cs" t="Include" />
+          <e p="SubscibeAttribute.cs" t="Include" />
+        </e>
+        <e p="BaseObject.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Contracts" t="Include">
+          <e p="IActorFactory.cs" t="Include" />
+          <e p="IActorLoader.cs" t="Include" />
+          <e p="IActorScheduler.cs" t="Include" />
+          <e p="IBaseObject.cs" t="Include" />
+          <e p="IConcurrencyProvider.cs" t="Include" />
+          <e p="IDayOffProvider.cs" t="Include" />
+          <e p="IFormatableMessage.cs" t="Include" />
+          <e p="IGpioDevice.cs" t="Include" />
+          <e p="II2cBus.cs" t="Include" />
+          <e p="IMessageBroker.cs" t="Include" />
+          <e p="IMessageResult.cs" t="Include" />
+          <e p="IRoslynCompilerService.cs" t="Include" />
+          <e p="ISerialDevice.cs" t="Include" />
+          <e p="ISoundPlayer.cs" t="Include" />
+          <e p="ITypeMapper.cs" t="Include" />
+          <e p="IValidable.cs" t="Include" />
+          <e p="IValueConverter.cs" t="Include" />
+        </e>
+        <e p="Defaults" t="Include">
+          <e p="ActorEventType.cs" t="Include" />
+          <e p="Capabilities.cs" t="Include" />
+          <e p="MessageType.cs" t="Include" />
+          <e p="PinModes.cs" t="Include" />
+          <e p="ReadWriteMode.cs" t="Include" />
+          <e p="StateProperties.cs" t="Include" />
+          <e p="ValueUnit.cs" t="Include" />
+        </e>
+        <e p="DisposeContainer.cs" t="Include" />
+        <e p="EmptyCondition.cs" t="Include" />
+        <e p="Exceptions" t="Include">
+          <e p="ConfigurationException.cs" t="Include" />
+          <e p="InitializationException.cs" t="Include" />
+        </e>
+        <e p="Extensions" t="Include">
+          <e p="BaseObjectAsExtensions.cs" t="Include" />
+          <e p="BaseObjectSetExtensions.cs" t="Include" />
+          <e p="IServiceProviderExtensions.cs" t="Include" />
+          <e p="ReactiveExtensions.cs" t="Include" />
+          <e p="RootContextExtensions.cs" t="Include" />
+          <e p="TypeExtensions.cs" t="Include" />
+        </e>
+        <e p="HomeCenter.Abstractions.csproj" t="IncludeRecursive" />
+        <e p="IsExternalInit.cs" t="Include" />
+        <e p="Messages" t="Include">
+          <e p="ActorMessage.cs" t="Include" />
+          <e p="ActorMessageContext.cs" t="Include" />
+          <e p="Command.cs" t="Include" />
+          <e p="Event.cs" t="Include" />
+          <e p="MessageProperties.cs" t="Include" />
+          <e p="Query.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="HomeCenter.Abstractions.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="PinChanged.cs" t="Include" />
+        <e p="State.cs" t="Include" />
+        <e p="SystemTime.cs" t="Include" />
+      </e>
+      <e p="HomeCenter.Actors.Core" t="IncludeRecursive">
+        <e p="Adapter.cs" t="Include" />
+        <e p="Area.cs" t="Include" />
+        <e p="AttachedProperty.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="DeviceActor.cs" t="Include" />
+        <e p="HomeCenter.Actors.Core.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="HomeCenter.Actors.Core.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Service.cs" t="Include" />
+      </e>
+      <e p="HomeCenter.EventAggregator.Abstractions" t="IncludeRecursive">
+        <e p="AssemblyInfo.cs" t="Include" />
+        <e p="Behavior.cs" t="Include" />
+        <e p="BehaviorChain.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Exceptions" t="Include">
+          <e p="QueryException.cs" t="Include" />
+          <e p="WrongResultException.cs" t="Include" />
+        </e>
+        <e p="Handlers" t="Include">
+          <e p="AsyncCommandHandler.cs" t="Include" />
+          <e p="AsyncWithResultCommandHandler.cs" t="Include" />
+          <e p="BaseCommandHandler.cs" t="Include" />
+          <e p="CommandHandler.cs" t="Include" />
+        </e>
+        <e p="HomeCenter.EventAggregator.Abstractions.csproj" t="IncludeRecursive" />
+        <e p="IAsyncCommandHandler.cs" t="Include" />
+        <e p="IBehavior.cs" t="Include" />
+        <e p="IEventAggregator.cs" t="Include" />
+        <e p="IHandler.cs" t="Include" />
+        <e p="IMessageEnvelope.cs" t="Include" />
+        <e p="IPropertySource.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="HomeCenter.EventAggregator.Abstractions.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="RoutingFilter.cs" t="Include" />
+        <e p="RoutingFilterAttribute.cs" t="Include" />
+        <e p="SubscriptionToken.cs" t="Include" />
+        <e p="VoidResult.cs" t="Include" />
+      </e>
+      <e p="HomeCenter.Example" t="IncludeRecursive">
+        <e p=".editorconfig" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="HomeCenter.Example.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net5.0" t="Include">
+              <e p="HomeCenter.Example.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Test.txt" t="Include" />
+        <e p="TestAdapter.cs" t="Include" />
+      </e>
+      <e p="HomeCenter.Extensions" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="ByteExtensions.cs" t="Include" />
+        <e p="CollectionsExtensions.cs" t="Include" />
+        <e p="DateTimeExtensions.cs" t="Include" />
+        <e p="HomeCenter.Extensions.csproj" t="IncludeRecursive" />
+        <e p="HttpContentExtensions.cs" t="Include" />
+        <e p="NumericExtensions.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="HomeCenter.Extensions.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="StringExtensions.cs" t="Include" />
+        <e p="TaskExtensions.cs" t="Include" />
+        <e p="VersionExtensions.cs" t="Include" />
+      </e>
+      <e p="HomeCenter.Messages" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Commands" t="Include">
+          <e p="Device" t="Include">
+            <e p="AdjustPowerLevelCommand.cs" t="Include" />
+            <e p="CalibrateCommand.cs" t="Include" />
+            <e p="InputSetCommand.cs" t="Include" />
+            <e p="ModeSetCommand.cs" t="Include" />
+            <e p="MuteCommand.cs" t="Include" />
+            <e p="PlayCommand.cs" t="Include" />
+            <e p="RefreshCommand.cs" t="Include" />
+            <e p="RefreshLightCommand.cs" t="Include" />
+            <e p="SetPowerLevelCommand.cs" t="Include" />
+            <e p="StopCommand.cs" t="Include" />
+            <e p="SwitchPowerStateCommand.cs" t="Include" />
+            <e p="TurnOffCommand.cs" t="Include" />
+            <e p="TurnOnCommand.cs" t="Include" />
+            <e p="UnMuteCommand.cs" t="Include" />
+            <e p="VolumeDownCommand.cs" t="Include" />
+            <e p="VolumeSetCommand.cs" t="Include" />
+            <e p="VolumeUpCommand.cs" t="Include" />
+          </e>
+          <e p="Service" t="Include">
+            <e p="Format.cs" t="Include" />
+            <e p="HttpCommand.cs" t="Include" />
+            <e p="I2cCommand.cs" t="Include" />
+            <e p="RegisterPinChangedCommand.cs" t="Include" />
+            <e p="RegisterSerialCommand.cs" t="Include" />
+            <e p="SendCodeCommand.cs" t="Include" />
+            <e p="StartFromConfigCommand.cs" t="Include" />
+            <e p="TcpCommand.cs" t="Include" />
+            <e p="UdpCommand.cs" t="Include" />
+            <e p="WakeOnLanCommand.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Events" t="Include">
+          <e p="Device" t="Include">
+            <e p="DipswitchEvent.cs" t="Include" />
+            <e p="InfraredEventcs.cs" t="Include" />
+            <e p="MotionEvent.cs" t="Include" />
+            <e p="PinValueChangedEvent.cs" t="Include" />
+            <e p="PowerStateChangeEvent.cs" t="Include" />
+            <e p="PropertyChangedEvent.cs" t="Include" />
+            <e p="SerialResultEvent.cs" t="Include" />
+          </e>
+          <e p="Service" t="Include">
+            <e p="ComponentStartedEvent.cs" t="Include" />
+            <e p="SystemStartedEvent.cs" t="Include" />
+          </e>
+        </e>
+        <e p="HomeCenter.Messages.csproj" t="IncludeRecursive" />
+        <e p="MessageGenerator.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="HomeCenter.Messages.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Queries" t="Include">
+          <e p="ActorContextQuery.cs" t="Include" />
+          <e p="Device" t="Include">
+            <e p="CapabilitiesQuery.cs" t="Include" />
+            <e p="DescriptionQuery.cs" t="Include" />
+            <e p="DiscoverQuery.cs" t="Include" />
+            <e p="DiscoveryResponse.cs" t="Include" />
+            <e p="StateQuery.cs" t="Include" />
+            <e p="StatusQuery.cs" t="Include" />
+            <e p="SupportedStatesQuery.cs" t="Include" />
+            <e p="TagsQuery.cs" t="Include" />
+          </e>
+          <e p="Services" t="Include">
+            <e p="HttpGetQuery.cs" t="Include" />
+            <e p="HttpPostQuery.cs" t="Include" />
+            <e p="I2cQuery.cs" t="Include" />
+            <e p="IsAliveQuery.cs" t="Include" />
+            <e p="SunriseQuery.cs" t="Include" />
+            <e p="SunsetQuery.cs" t="Include" />
+            <e p="TcpQuery.cs" t="Include" />
+          </e>
+          <e p="StopSystemQuery.cs" t="Include" />
+        </e>
+      </e>
+      <e p="HomeCenter.SourceGenerators" t="IncludeRecursive">
+        <e p="ActorProxySourceGenerator.cs" t="Include" />
+        <e p="AssemblyInfo.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Extensions" t="Include">
+          <e p="OptionsInternalReader.cs" t="Include" />
+          <e p="ResourceReader.cs" t="Include" />
+          <e p="RoslynExtensions.cs" t="Include" />
+          <e p="SourceGeneratorContext.cs" t="Include" />
+          <e p="SourceGeneratorDiagnostic.cs" t="Include" />
+          <e p="SourceGeneratorLogger.cs" t="Include" />
+          <e p="StringExtension.cs" t="Include" />
+          <e p="TemplateGenerator.cs" t="Include" />
+        </e>
+        <e p="HomeCenter.SourceGenerators.csproj" t="IncludeRecursive" />
+        <e p="MessageFactoryGenerator.cs" t="Include" />
+        <e p="Models" t="Include">
+          <e p="ActorProxy" t="Include">
+            <e p="AttributeDescriptor.cs" t="Include" />
+            <e p="MethodDescription.cs" t="Include" />
+            <e p="ParameterDescriptor.cs" t="Include" />
+            <e p="PropertyAssignDescriptor.cs" t="Include" />
+            <e p="ProxyModel.cs" t="Include" />
+            <e p="SubscriptionDescriptor.cs" t="Include" />
+          </e>
+          <e p="AdditionalFilesOptions.cs" t="Include" />
+          <e p="GeneratedSource.cs" t="Include" />
+          <e p="MessageFactory" t="Include">
+            <e p="CommandDescriptor.cs" t="Include" />
+            <e p="EventDescriptor.cs" t="Include" />
+            <e p="MessageFactoryModel.cs" t="Include" />
+          </e>
+          <e p="SourceGeneratorOptions.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="HomeCenter.SourceGenerators.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Readme.md" t="Include" />
+        <e p="SyntaxReceivers" t="Include">
+          <e p="ActorSyntaxReceiver.cs" t="Include" />
+          <e p="MessageFactorySyntaxReceiver.cs" t="Include" />
+        </e>
+        <e p="Templates" t="Include">
+          <e p="ActorProxy.scriban" t="Include" />
+          <e p="ErrorModel.cstemplate" t="Include" />
+          <e p="MessageFactory.scriban" t="Include" />
+        </e>
+      </e>
+      <e p="HomeCenter.SourceGenerators.sln" t="IncludeFlat" />
+      <e p="HomeCenter.SourceGenerators.Tests" t="IncludeRecursive">
+        <e p="ActorProxySourceGeneratorTests.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Helpers" t="Include">
+          <e p="AssertExtensions.cs" t="Include" />
+          <e p="GeneratorResult.cs" t="Include" />
+          <e p="GeneratorRunner.cs" t="Include" />
+          <e p="IsExternalInit.cs" t="Include" />
+          <e p="StringExtensions.cs" t="Include" />
+        </e>
+        <e p="HomeCenter.SourceGenerators.Tests.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net5.0" t="Include">
+              <e p="HomeCenter.SourceGenerators.Tests.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TestInputs" t="Include">
+          <e p="TestAdapter.cs" t="Include" />
+          <e p="TestMessageFactory.cs" t="Include" />
+        </e>
+        <e p="TestOutputs" t="Include">
+          <e p="TestAdapterOutput.cs" t="Include" />
+          <e p="TestMessageFactoryOutput.cs" t="Include" />
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Solution Items" t="Include" />
+    </e>
+  </component>
+</project>

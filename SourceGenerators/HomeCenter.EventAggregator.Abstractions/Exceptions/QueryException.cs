@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace HomeCenter.EventAggregator.Exceptions
 {
     public class QueryException : Exception
     {
-        public QueryException() : base()
+        public QueryException()
         {
         }
 
-        protected QueryException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context)
+        protected QueryException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
 

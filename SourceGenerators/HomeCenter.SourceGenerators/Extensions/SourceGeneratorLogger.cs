@@ -11,12 +11,13 @@ namespace HomeCenter.SourceGenerators
     {
         private const int LineSurfixLenght = 20;
         private const int LineLenght = 100;
+        private readonly GeneratorExecutionContext _executionContext;
 
         private readonly Stopwatch _loggerStopwatch;
-        private readonly GeneratorExecutionContext _executionContext;
         private readonly SourceGeneratorOptions<T> _options;
 
-        public SourceGeneratorLogger(GeneratorExecutionContext generatorExecutionContext, SourceGeneratorOptions<T> options)
+        public SourceGeneratorLogger(GeneratorExecutionContext generatorExecutionContext,
+            SourceGeneratorOptions<T> options)
         {
             _executionContext = generatorExecutionContext;
             _options = options;
@@ -28,10 +29,18 @@ namespace HomeCenter.SourceGenerators
 
             WriteHeader();
 
-            if(_options.DetailedLogging)
-            {
-                WriteLog(OptionsInternalReader.ReadOptions(generatorExecutionContext));
-            }
+            if (_options.DetailedLogging) WriteLog(OptionsInternalReader.ReadOptions(generatorExecutionContext));
+        }
+
+        public void Dispose()
+        {
+            if (!_options.EnableLogging) return;
+
+            _loggerStopwatch.Stop();
+
+            var summary = GetTextWithLine($"END [{typeof(T).Name} | {_loggerStopwatch.Elapsed:g}] ");
+
+            WriteLog(summary);
         }
 
         public void TryLogSourceCode(ClassDeclarationSyntax classDeclaration, string generatedSource)
@@ -65,18 +74,7 @@ namespace HomeCenter.SourceGenerators
             WriteLog(message);
         }
 
-        public void Dispose()
-        {
-            if (!_options.EnableLogging) return;
 
-            _loggerStopwatch.Stop();
-
-            var summary = GetTextWithLine($"END [{typeof(T).Name} | {_loggerStopwatch.Elapsed:g}] ");
-
-            WriteLog(summary);
-        }
-
-        
         private void WriteHeader()
         {
             var sb = new StringBuilder();
@@ -88,16 +86,13 @@ namespace HomeCenter.SourceGenerators
             sb.AppendLine($"-> Language: {_executionContext.ParseOptions.Language}");
             sb.AppendLine($"-> Kind: {_executionContext.ParseOptions.Kind}");
             sb.AppendLine("-> Additional files:");
-            
-            foreach (var additionalFile in _executionContext.AdditionalFiles)
-            {
-              sb.AppendLine(additionalFile.Path);
-            }
-            
+
+            foreach (var additionalFile in _executionContext.AdditionalFiles) sb.AppendLine(additionalFile.Path);
+
             WriteLog(sb.ToString());
         }
 
-        
+
         private void WriteLog(string logtext)
         {
             File.AppendAllText(_options.LogPath, $"{logtext}{Environment.NewLine}");
@@ -105,7 +100,8 @@ namespace HomeCenter.SourceGenerators
 
         private string GetTextWithLine(string context)
         {
-            return new string('-', LineSurfixLenght) + context + new string('-', LineLenght - LineSurfixLenght - context.Length);
+            return new string('-', LineSurfixLenght) + context +
+                   new string('-', LineLenght - LineSurfixLenght - context.Length);
         }
     }
 }

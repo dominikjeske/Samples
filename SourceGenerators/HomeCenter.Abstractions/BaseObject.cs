@@ -6,7 +6,12 @@ namespace HomeCenter.Abstractions
 {
     public abstract class BaseObject : IPropertySource, IBaseObject
     {
-        private Dictionary<string, object> _properties { get; set; } = new Dictionary<string, object>();
+        public BaseObject()
+        {
+            Type = GetType().Name;
+        }
+
+        private Dictionary<string, object> _properties { get; } = new Dictionary<string, object>();
 
         public string Uid
         {
@@ -20,28 +25,30 @@ namespace HomeCenter.Abstractions
             set => this.SetProperty(MessageProperties.Type, value);
         }
 
-        public BaseObject()
-        {
-            Type = GetType().Name;
-        }
-
         public object this[string propertyName]
         {
             get
             {
-                if (!ContainsProperty(propertyName)) throw new KeyNotFoundException($"Property {propertyName} not found on component {Uid}");
+                if (!ContainsProperty(propertyName))
+                    throw new KeyNotFoundException($"Property {propertyName} not found on component {Uid}");
                 return _properties[propertyName];
             }
-            set
-            {
-                _properties[propertyName] = value;
-            }
+            set => _properties[propertyName] = value;
         }
 
-        public override string ToString() => GetProperties()?.ToFormatedString() ?? string.Empty;
+        public bool ContainsProperty(string propertyName)
+        {
+            return _properties.ContainsKey(propertyName);
+        }
 
-        public bool ContainsProperty(string propertyName) => _properties.ContainsKey(propertyName);
+        public IReadOnlyDictionary<string, object> GetProperties()
+        {
+            return _properties.AsReadOnly();
+        }
 
-        public IReadOnlyDictionary<string, object> GetProperties() => _properties.AsReadOnly();
+        public override string ToString()
+        {
+            return GetProperties()?.ToFormatedString() ?? string.Empty;
+        }
     }
 }

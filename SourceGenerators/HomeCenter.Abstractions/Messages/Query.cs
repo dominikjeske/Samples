@@ -5,9 +5,6 @@ namespace HomeCenter.Abstractions
 {
     public class Query : ActorMessage
     {
-        [JsonIgnore]
-        public CancellationToken CancellationToken { get; }
-
         public Query()
         {
         }
@@ -23,12 +20,17 @@ namespace HomeCenter.Abstractions
             Uid = uid;
         }
 
-        public Query(string commandType, CancellationToken cancellationToken) : base()
+        public Query(string commandType, CancellationToken cancellationToken)
         {
             Type = commandType;
             CancellationToken = cancellationToken;
         }
 
-        public static implicit operator Query(string value) => new Query(value);
+        [JsonIgnore] public CancellationToken CancellationToken { get; }
+
+        public static implicit operator Query(string value)
+        {
+            return new Query(value);
+        }
     }
 }

@@ -9,21 +9,17 @@ namespace HomeCenter.SourceGenerators.Tests
 
     public class TestCommand : Command
     {
-
     }
 
     public class Test2Command : Command
     {
-
     }
 
     public class TestEvent : Event
     {
-
     }
 
     public class TestEvent2 : Event
     {
-
     }
 }

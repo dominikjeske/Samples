@@ -30,13 +30,16 @@ namespace HomeCenter.Abstractions
 
         void Send(object message, string uid, string address = null);
 
-        SubscriptionToken SubscribeForMessage<T>(PID subscriber, bool subscribeOnParent, RoutingFilter filter = null) where T : ActorMessage;
+        SubscriptionToken SubscribeForMessage<T>(PID subscriber, bool subscribeOnParent, RoutingFilter filter = null)
+            where T : ActorMessage;
 
-        SubscriptionToken SubscribeForQuery<T, R>(PID subscriber, bool subscribeOnParent, RoutingFilter filter = null) where T : Query;
+        SubscriptionToken SubscribeForQuery<T, R>(PID subscriber, bool subscribeOnParent, RoutingFilter filter = null)
+            where T : Query;
 
         IObservable<IMessageEnvelope<T>> Observe<T>(RoutingFilter routingFilter = null) where T : Event;
 
-        SubscriptionToken SubscribeForEvent<T>(Action<IMessageEnvelope<T>> action, RoutingFilter filter = null) where T : Event;
+        SubscriptionToken SubscribeForEvent<T>(Action<IMessageEnvelope<T>> action, RoutingFilter filter = null)
+            where T : Event;
 
         Task<Event> PublishWithTranslate(ActorMessage source, ActorMessage destination, RoutingFilter filter = null);
 
@@ -44,13 +47,16 @@ namespace HomeCenter.Abstractions
 
         Task SendWithSimpleRepeat(ActorMessageContext message, TimeSpan interval, CancellationToken token = default);
 
-        Task SendAfterDelay(ActorMessageContext message, TimeSpan delay, bool cancelExisting = true, CancellationToken token = default);
+        Task SendAfterDelay(ActorMessageContext message, TimeSpan delay, bool cancelExisting = true,
+            CancellationToken token = default);
 
         Task SendAtTime(ActorMessageContext message, DateTimeOffset time, CancellationToken token = default);
 
-        Task SendWithCronRepeat(ActorMessageContext message, string cronExpression, CancellationToken token = default, string calendar = default);
+        Task SendWithCronRepeat(ActorMessageContext message, string cronExpression, CancellationToken token = default,
+            string calendar = default);
 
-        Task SendDailyAt(ActorMessageContext message, TimeSpan time, CancellationToken token = default, string calendar = default);
+        Task SendDailyAt(ActorMessageContext message, TimeSpan time, CancellationToken token = default,
+            string calendar = default);
 
         PID GetPID(string uid, string address = null);
     }

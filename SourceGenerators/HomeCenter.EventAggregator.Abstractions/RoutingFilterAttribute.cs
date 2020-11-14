@@ -2,7 +2,7 @@
 
 namespace HomeCenter.EventAggregator
 {
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Method)]
     public class RoutingFilterAttribute : Attribute
     {
         public RoutingFilterAttribute(string simpleFilter)
@@ -12,6 +12,9 @@ namespace HomeCenter.EventAggregator
 
         public string SimpleFilter { get; }
 
-        public RoutingFilter ToMessageFilter() => new RoutingFilter(SimpleFilter);
+        public RoutingFilter ToMessageFilter()
+        {
+            return new RoutingFilter(SimpleFilter);
+        }
     }
 }

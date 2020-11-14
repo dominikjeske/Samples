@@ -9,13 +9,18 @@ namespace HomeCenter.Extensions
     public static class TaskExtensions
     {
         /// <summary>
-        /// Creates a task that will complete when all of the <seealso cref="Task"/> objects in an enumerable collection have completed.
+        ///     Creates a task that will complete when all of the <seealso cref="Task" /> objects in an enumerable collection have
+        ///     completed.
         /// </summary>
         /// <param name="tasks">List of tasks to await</param>
-        public static Task WhenAll(this IEnumerable<Task> tasks) => Task.WhenAll(tasks);
+        public static Task WhenAll(this IEnumerable<Task> tasks)
+        {
+            return Task.WhenAll(tasks);
+        }
 
         /// <summary>
-        /// Creates a task that will complete when all of the <seealso cref="Task"/> objects in an enumerable collection have completed or time out occurs
+        ///     Creates a task that will complete when all of the <seealso cref="Task" /> objects in an enumerable collection have
+        ///     completed or time out occurs
         /// </summary>
         /// <param name="tasks">List of tasks to await</param>
         public static async Task<Task> WhenAll(this IEnumerable<Task> tasks, TimeSpan timeout)
@@ -30,7 +35,8 @@ namespace HomeCenter.Extensions
         }
 
         /// <summary>
-        /// Creates a task that will complete when all of the <seealso cref="Task"/> objects in an enumerable collection have completed or token was canceled
+        ///     Creates a task that will complete when all of the <seealso cref="Task" /> objects in an enumerable collection have
+        ///     completed or token was canceled
         /// </summary>
         /// <param name="tasks">List of tasks to await</param>
         public static async Task<Task> WhenAll(this IEnumerable<Task> tasks, CancellationToken cancellationToken)
@@ -45,22 +51,23 @@ namespace HomeCenter.Extensions
         }
 
         /// <summary>
-        /// Execute <paramref name="func"/> on each data from <paramref name="data"/>
+        ///     Execute <paramref name="func" /> on each data from <paramref name="data" />
         /// </summary>
         /// <typeparam name="T">Type of input data</typeparam>
         /// <typeparam name="R">Type of return value</typeparam>
         /// <param name="data">Data on which we are operate</param>
-        /// <param name="func"><seealso cref="Func"/> that change data</param>
+        /// <param name="func"><seealso cref="Func" /> that change data</param>
         /// <returns></returns>
-        public static async Task<IEnumerable<(T Input, R Result)>> WhenAll<T, R>(this IEnumerable<T> data, Func<T, Task<R>> func)
+        public static async Task<IEnumerable<(T Input, R Result)>> WhenAll<T, R>(this IEnumerable<T> data,
+            Func<T, Task<R>> func)
         {
-            var discoveryRequests = data.Select(d => new { ResultTask = func(d), Input = d }).ToArray();
+            var discoveryRequests = data.Select(d => new {ResultTask = func(d), Input = d}).ToArray();
             await Task.WhenAll(discoveryRequests.Select(c => c.ResultTask));
             return discoveryRequests.Select(d => (d.Input, d.ResultTask.Result));
         }
 
         /// <summary>
-        /// Waits for first task to finish or time out
+        ///     Waits for first task to finish or time out
         /// </summary>
         /// <typeparam name="R"></typeparam>
         /// <param name="tasks"></param>
@@ -77,28 +84,25 @@ namespace HomeCenter.Extensions
         }
 
         /// <summary>
-        /// Waits for task to complete or timeout  / canceled
+        ///     Waits for task to complete or timeout  / canceled
         /// </summary>
         /// <typeparam name="R"></typeparam>
         /// <param name="task"></param>
         /// <param name="timeout"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public static async Task<R> WhenDone<R>(this Task<R> task, TimeSpan timeout, CancellationToken cancellationToken = default)
+        public static async Task<R> WhenDone<R>(this Task<R> task, TimeSpan timeout,
+            CancellationToken cancellationToken = default)
         {
             var timeoutTask = Task.Delay(timeout, cancellationToken);
-            var result = await Task.WhenAny(new Task[] { task, timeoutTask });
+            var result = await Task.WhenAny(task, timeoutTask);
 
             if (result == timeoutTask)
             {
                 if (cancellationToken.IsCancellationRequested && timeoutTask.Status == TaskStatus.Canceled)
-                {
                     throw new OperationCanceledException();
-                }
                 if (timeoutTask.Status == TaskStatus.RanToCompletion && !cancellationToken.IsCancellationRequested)
-                {
                     throw new TimeoutException();
-                }
 
                 throw new InvalidOperationException("Not supported result in Timeout");
             }
@@ -107,19 +111,19 @@ namespace HomeCenter.Extensions
         }
 
         /// <summary>
-        /// Change <seealso cref="CancellationToken"/> into <seealso cref="Task"/>
+        ///     Change <seealso cref="CancellationToken" /> into <seealso cref="Task" />
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         public static Task WhenCanceled(this CancellationToken cancellationToken)
         {
             var tcs = new TaskCompletionSource<bool>();
-            cancellationToken.Register(s => ((TaskCompletionSource<bool>)s).SetResult(true), tcs);
+            cancellationToken.Register(s => ((TaskCompletionSource<bool>) s).SetResult(true), tcs);
             return tcs.Task;
         }
 
         /// <summary>
-        /// Cast <paramref name="task"/> into <seealso cref="Task<typeparamref name="T"/>"/>
+        ///     Cast <paramref name="task" /> into <seealso cref="Task<typeparamref name="T" />"/>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="task"></param>
@@ -130,23 +134,18 @@ namespace HomeCenter.Extensions
             task.ContinueWith(t =>
             {
                 if (t.IsFaulted)
-                {
                     tcs.TrySetException(t.Exception.InnerExceptions);
-                }
                 else if (t.IsCanceled)
-                {
                     tcs.TrySetCanceled();
-                }
                 else
-                {
-                    tcs.TrySetResult((T)t.Result);
-                }
+                    tcs.TrySetResult((T) t.Result);
             }, TaskContinuationOptions.ExecuteSynchronously);
             return tcs.Task;
         }
 
         /// <summary>
-        /// Cast <paramref name="task"/> into <seealso cref="Task<typeparamref name="T"/>"/>  or <paramref name="defaultValue"/>
+        ///     Cast <paramref name="task" /> into <seealso cref="Task<typeparamref name="T" />"/>  or
+        ///     <paramref name="defaultValue" />
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="task"></param>
@@ -158,27 +157,24 @@ namespace HomeCenter.Extensions
             task.ContinueWith(t =>
             {
                 if (t.IsFaulted)
-                {
                     tcs.TrySetException(t.Exception.InnerExceptions);
-                }
                 else if (t.IsCanceled)
-                {
                     tcs.TrySetCanceled();
-                }
                 else
-                {
                     tcs.TrySetResult(defaultValue);
-                }
             }, TaskContinuationOptions.ExecuteSynchronously);
             return tcs.Task;
         }
 
         /// <summary>
-        /// Cast generic <paramref name="source"/> into <seealso cref="Task" of object/>
+        ///     Cast generic <paramref name="source" /> into <seealso cref="Task" of object />
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="source"></param>
         /// <returns></returns>
-        public static Task<object> ToGenericTaskResult<TResult>(this Task<TResult> source) => source.ContinueWith(t => (object)t.Result);
+        public static Task<object> ToGenericTaskResult<TResult>(this Task<TResult> source)
+        {
+            return source.ContinueWith(t => (object) t.Result);
+        }
     }
 }

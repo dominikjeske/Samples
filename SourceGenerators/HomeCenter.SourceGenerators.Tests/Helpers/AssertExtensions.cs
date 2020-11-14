@@ -9,5 +9,4 @@ namespace HomeCenter.SourceGenerators.Tests
             Assert.Equal(expected.TrimWhiteSpaces(), actual.TrimWhiteSpaces());
         }
     }
-
 }

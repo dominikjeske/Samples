@@ -8,10 +8,13 @@
 
         public string Type { get; set; }
 
-        public  ParameterDescriptor ToCamelCase() => new ParameterDescriptor
+        public ParameterDescriptor ToCamelCase()
         {
-            Name = Source.ToCamelCase(),
-            Type = Type
-        };
+            return new ParameterDescriptor
+            {
+                Name = Source.ToCamelCase(),
+                Type = Type
+            };
+        }
     }
 }

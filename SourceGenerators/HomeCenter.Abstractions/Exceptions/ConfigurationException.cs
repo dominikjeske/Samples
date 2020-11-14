@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace HomeCenter.Abstractions
 {
     /// <summary>
-    /// Exception throwed when configuration is not properly formated
+    ///     Exception throwed when configuration is not properly formated
     /// </summary>
     public class ConfigurationException : Exception
     {
-        public ConfigurationException() : base()
+        public ConfigurationException()
         {
         }
 
-        protected ConfigurationException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context)
+        protected ConfigurationException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
 

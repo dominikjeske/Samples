@@ -3,9 +3,9 @@
 namespace HomeCenter.Abstractions
 {
     /// <summary>
-    /// Property injected in proxy generated class
+    ///     Property injected in proxy generated class
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property)]
     public class DIAttribute : Attribute
     {
     }

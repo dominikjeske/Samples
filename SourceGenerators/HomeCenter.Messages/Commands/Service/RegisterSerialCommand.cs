@@ -8,11 +8,6 @@ namespace HomeCenter.Messages.Queries.Service
 {
     public class RegisterSerialCommand : Command
     {
-        public Format[] ResultFormat { get; }
-        public byte MessageType { get; }
-        public int MessageSize { get; }
-        public PID Actor { get; }
-
         public RegisterSerialCommand()
         {
         }
@@ -24,5 +19,10 @@ namespace HomeCenter.Messages.Queries.Service
             MessageSize = resultFormat.Sum(format => Marshal.SizeOf(format.ValueType));
             ResultFormat = resultFormat;
         }
+
+        public Format[] ResultFormat { get; }
+        public byte MessageType { get; }
+        public int MessageSize { get; }
+        public PID Actor { get; }
     }
 }

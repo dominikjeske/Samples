@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using HomeCenter.Abstractions;
+﻿using HomeCenter.Abstractions;
+using System.Collections.Generic;
 
 namespace HomeCenter.Actors.Core
 {

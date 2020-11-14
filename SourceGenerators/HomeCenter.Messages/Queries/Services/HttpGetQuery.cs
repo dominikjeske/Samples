@@ -4,8 +4,6 @@ namespace HomeCenter.Messages.Queries.Services
 {
     public abstract class HttpGetQuery : Query
     {
-        public abstract object Parse(string rawHttpResult);
-
         protected HttpGetQuery()
         {
             RequestType = "GET";
@@ -22,5 +20,7 @@ namespace HomeCenter.Messages.Queries.Services
             get => this.AsString(MessageProperties.RequestType);
             set => this.SetProperty(MessageProperties.RequestType, value);
         }
+
+        public abstract object Parse(string rawHttpResult);
     }
 }

@@ -4,8 +4,7 @@ namespace HomeCenter.Abstractions
 {
     public interface IDayOffProvider
     {
-        bool IsDayOff(DateTime date);
-
         string Name { get; }
+        bool IsDayOff(DateTime date);
     }
 }

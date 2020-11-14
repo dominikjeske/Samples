@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>preview</LangVersion>
+    <!--<LangVersion>preview</LangVersion>-->
     <SourceGenerator_EnableLogging>True</SourceGenerator_EnableLogging>
     <SourceGenerator_EnableDebug>False</SourceGenerator_EnableDebug>
     

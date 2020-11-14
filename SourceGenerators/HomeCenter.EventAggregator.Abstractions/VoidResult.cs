@@ -2,6 +2,6 @@
 {
     public class VoidResult
     {
-        public readonly static VoidResult Void = new VoidResult();
+        public static readonly VoidResult Void = new VoidResult();
     }
 }

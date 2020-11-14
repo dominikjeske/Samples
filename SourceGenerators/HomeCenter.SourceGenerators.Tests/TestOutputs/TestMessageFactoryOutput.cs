@@ -1,23 +1,27 @@
 ﻿using HomeCenter.Abstractions;
+using HomeCenter.EventAggregator;
+using System.Threading.Tasks;
 
 namespace HomeCenter.SourceGenerators.Tests
 {
     [GeneratedCode]
     public partial class MessageGenerator
     {
-        public async System.Threading.Tasks.Task<Event> PublishEvent(ActorMessage source, ActorMessage destination, IMessageBroker messageBroker, EventAggregator.RoutingFilter routingFilter)
+        public async Task<Event> PublishEvent(ActorMessage source, ActorMessage destination,
+            IMessageBroker messageBroker, RoutingFilter routingFilter)
         {
             if (destination.Type == "TestEvent")
             {
-                var @event = new HomeCenter.SourceGenerators.Tests.TestEvent();
+                var @event = new TestEvent();
                 @event.SetProperties(source);
                 @event.SetProperties(destination);
                 await messageBroker.Publish(@event, routingFilter);
                 return @event;
             }
-            else if (destination.Type == "TestEvent2")
+
+            if (destination.Type == "TestEvent2")
             {
-                var @event = new HomeCenter.SourceGenerators.Tests.TestEvent2();
+                var @event = new TestEvent2();
                 @event.SetProperties(source);
                 @event.SetProperties(destination);
                 await messageBroker.Publish(@event, routingFilter);
@@ -34,13 +38,8 @@ namespace HomeCenter.SourceGenerators.Tests
         public Command CreateCommand(string message)
         {
             if (message == "TestCommand")
-            {
-                return new HomeCenter.SourceGenerators.Tests.TestCommand();
-            }
-            else if (message == "Test2Command")
-            {
-                return new HomeCenter.SourceGenerators.Tests.Test2Command();
-            }
+                return new TestCommand();
+            if (message == "Test2Command") return new Test2Command();
 
             return new Command();
         }

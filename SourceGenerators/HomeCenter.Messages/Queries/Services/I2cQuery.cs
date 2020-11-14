@@ -4,14 +4,6 @@ namespace HomeCenter.Messages.Queries.Services
 {
     public class I2cQuery : Query
     {
-        public static I2cQuery Create(int address, byte[] InitializeWrite, int bufferSize) => new I2cQuery
-        {
-            Address = address,
-            Initialize = InitializeWrite,
-            BufferSize = bufferSize,
-            LogLevel = nameof(Microsoft.Extensions.Logging.LogLevel.Trace)
-        };
-
         public int Address
         {
             get => this.AsInt(MessageProperties.Address);
@@ -28,6 +20,17 @@ namespace HomeCenter.Messages.Queries.Services
         {
             get => this.AsInt(MessageProperties.Size);
             set => this.SetProperty(MessageProperties.Size, value);
+        }
+
+        public static I2cQuery Create(int address, byte[] InitializeWrite, int bufferSize)
+        {
+            return new I2cQuery
+            {
+                Address = address,
+                Initialize = InitializeWrite,
+                BufferSize = bufferSize,
+                LogLevel = nameof(Microsoft.Extensions.Logging.LogLevel.Trace)
+            };
         }
     }
 }

@@ -6,7 +6,7 @@ namespace HomeCenter.Messages.Events.Service
     {
         public static ComponentStartedEvent Create(string componentUid)
         {
-            return new ComponentStartedEvent()
+            return new ComponentStartedEvent
             {
                 MessageSource = componentUid
             };

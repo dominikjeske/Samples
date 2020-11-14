@@ -11,8 +11,6 @@ namespace HomeCenter.Messages.Queries.Services
             RequestType = "POST";
         }
 
-        public virtual object Parse(string rawHttpResult) => rawHttpResult;
-
         public CookieContainer Cookies { get; protected set; }
 
         public string Address
@@ -61,6 +59,11 @@ namespace HomeCenter.Messages.Queries.Services
         {
             get => this.AsDictionary(MessageProperties.Creditionals);
             set => this.SetProperty(MessageProperties.Creditionals, value);
+        }
+
+        public virtual object Parse(string rawHttpResult)
+        {
+            return rawHttpResult;
         }
     }
 }
