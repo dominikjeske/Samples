@@ -1,48 +1,51 @@
 <Project>
-    <!-- Include each file with given extension from None collection to EmbeddedResource-->
+  <!-- Include each file with given extension from None collection to EmbeddedResource-->
+  <ItemGroup>
+    <EmbeddedResource Include="@(None -> WithMetadataValue('Extension', '.scriban'))" />
+    <EmbeddedResource Include="@(None -> WithMetadataValue('Extension', '.cstemplate'))" />
+  </ItemGroup>
+
+  <!-- Set visibility of those props to SourceGenerator-->
+  <ItemGroup>
+    <CompilerVisibleProperty Include="SourceGenerator_EnableLogging" />
+    <CompilerVisibleProperty Include="SourceGenerator_DetailedLog" />
+    <CompilerVisibleProperty Include="SourceGenerator_EnableDebug" />
+    <CompilerVisibleProperty Include="SourceGenerator_IntellisenseFix" />
+    <CompilerVisibleProperty Include="IntermediateOutputPath" />
+    <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="Type" />
+  </ItemGroup>
+
+  <Target Name="RemoveSourceGeneratedFiles" BeforeTargets="CoreCompile">
     <ItemGroup>
-        <EmbeddedResource Include="@(None -> WithMetadataValue('Extension', '.scriban'))" />
-        <EmbeddedResource Include="@(None -> WithMetadataValue('Extension', '.cstemplate'))" />
+      <Compile Remove="**/*.generated.cs" />
     </ItemGroup>
+  </Target>
 
-    <!-- Set visibility of those props to SourceGenerator-->
+  <!-- Include each nuget reference with property 'LocalSourceGenerators' into final-->
+  <Target Name="AddLocalDependencies"
+          Inputs="@(RuntimeCopyLocalItems)"
+          Outputs="%(RuntimeCopyLocalItems.NuGetPackageId)"
+          AfterTargets="ResolvePackageAssets">
+    <!-- Get NuGetPackageId from  RuntimeCopyLocalItems-->
     <ItemGroup>
-        <CompilerVisibleProperty Include="SourceGenerator_EnableLogging" />
-        <CompilerVisibleProperty Include="SourceGenerator_DetailedLog" />
-        <CompilerVisibleProperty Include="SourceGenerator_EnableDebug" />
-        <CompilerVisibleProperty Include="SourceGenerator_IntellisenseFix" />
-        <CompilerVisibleProperty Include="IntermediateOutputPath" />
-
-      <!--Add SourceGenerator_EnableDebug_XXX where generator name can be used for debug only this generator-->
-
-        <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="Type" />
+      <NuGetPackageId Include="@(RuntimeCopyLocalItems -> '%(NuGetPackageId)')" />
     </ItemGroup>
-
-    <!-- Include each nuget reference with property 'LocalSourceGenerators' into final-->
-    <Target Name="AddLocalDependencies"
-            Inputs="@(RuntimeCopyLocalItems)"
-            Outputs="%(RuntimeCopyLocalItems.NuGetPackageId)"
-            AfterTargets="ResolvePackageAssets">
-        <!-- Get NuGetPackageId from  RuntimeCopyLocalItems-->
-        <ItemGroup>
-            <NuGetPackageId Include="@(RuntimeCopyLocalItems -> '%(NuGetPackageId)')" />
-        </ItemGroup>
-        <!-- Distinc results -->
-        <PropertyGroup>
-            <NuGetPackageId>@(NuGetPackageId -&gt; Distinct())</NuGetPackageId>
-        </PropertyGroup>
-        <!-- Get all PackageReference matching names from NuGetPackageId -->
-        <ItemGroup>
-            <PackageReferenceDependency
-                Include="@(PackageReference -&gt; WithMetadataValue('Identity', '$(NuGetPackageId)'))" />
-        </ItemGroup>
-        <!-- Get metadata 'LocalSourceGenerators' from  PackageReference-->
-        <PropertyGroup>
-            <NuGetPackageLocalSourceGen>@(PackageReferenceDependency -> '%(LocalSourceGenerators)')</NuGetPackageLocalSourceGen>
-        </PropertyGroup>
-        <!-- For packages with attribute LocalSourceGenerators add library to final solution-->
-        <ItemGroup Condition="'$(NuGetPackageLocalSourceGen)' == 'true'">
-            <TargetPathWithTargetPlatformMoniker Include="@(RuntimeCopyLocalItems)" IncludeRuntimeDependency="false" />
-        </ItemGroup>
-    </Target>
+    <!-- Distinc results -->
+    <PropertyGroup>
+      <NuGetPackageId>@(NuGetPackageId -&gt; Distinct())</NuGetPackageId>
+    </PropertyGroup>
+    <!-- Get all PackageReference matching names from NuGetPackageId -->
+    <ItemGroup>
+      <PackageReferenceDependency
+          Include="@(PackageReference -&gt; WithMetadataValue('Identity', '$(NuGetPackageId)'))" />
+    </ItemGroup>
+    <!-- Get metadata 'LocalSourceGenerators' from  PackageReference-->
+    <PropertyGroup>
+      <NuGetPackageLocalSourceGen>@(PackageReferenceDependency -> '%(LocalSourceGenerators)')</NuGetPackageLocalSourceGen>
+    </PropertyGroup>
+    <!-- For packages with attribute LocalSourceGenerators add library to final solution-->
+    <ItemGroup Condition="'$(NuGetPackageLocalSourceGen)' == 'true'">
+      <TargetPathWithTargetPlatformMoniker Include="@(RuntimeCopyLocalItems)" IncludeRuntimeDependency="false" />
+    </ItemGroup>
+  </Target>
 </Project>

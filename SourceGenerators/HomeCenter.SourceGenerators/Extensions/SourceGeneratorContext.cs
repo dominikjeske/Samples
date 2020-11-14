@@ -49,7 +49,8 @@ namespace HomeCenter.SourceGenerators
                 if (!context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.IntermediateOutputPath", out var intermediate))
                     throw new NotSupportedException();
 
-                var path = Path.Combine(intermediate, hintName + ".ta.g.cs");
+                //var path = Path.Combine(intermediate, hintName + ".generated.cs");
+                var path = hintName + ".generated.cs";
                 Directory.CreateDirectory(intermediate);
                 File.WriteAllText(path, content, Encoding.UTF8);
             }
