@@ -28,8 +28,6 @@ namespace HomeCenter.SourceGenerators
                 {
                     var source = GenearteProxy(proxy, sourceGenContext);
 
-                    sourceGenContext.ApplyDesignTimeFix(context, source.SourceCode, source.FileName);
-
                     context.AddSource(source.FileName, SourceText.From(source.SourceCode, Encoding.UTF8));
                 }
             }
@@ -46,6 +44,7 @@ namespace HomeCenter.SourceGenerators
                 var result = TemplateGenerator.Execute(templateString, proxyModel);
 
                 context.TryLogSourceCode(proxy, result);
+                context.ApplyDesignTimeFix(result, proxyModel.ClassName);
 
                 return new GeneratedSource(result, proxyModel.ClassName);
             }

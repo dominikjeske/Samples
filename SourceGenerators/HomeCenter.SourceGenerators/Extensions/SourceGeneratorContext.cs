@@ -32,26 +32,20 @@ namespace HomeCenter.SourceGenerators
             var sourceGenContext = new SourceGeneratorContext<T>(context);
 
             if (sourceGenContext.Options.EnableDebug)
+            {
                 if (!Debugger.IsAttached)
+                {
                     Debugger.Launch();
-
+                }
+            }
             return sourceGenContext;
         }
 
-        public void ApplyDesignTimeFix(GeneratorExecutionContext context, string content, string hintName)
+        public void ApplyDesignTimeFix(string content, string hintName)
         {
-            var includeFix = context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.SourceGenerator_IntellisenseFix", out var raw) &&
-                bool.TryParse(raw, out var value) &&
-                value;
-
-            if (includeFix)
+            if (Options.IntellisenseFix)
             {
-                if (!context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.IntermediateOutputPath", out var intermediate))
-                    throw new NotSupportedException();
-
-                //var path = Path.Combine(intermediate, hintName + ".generated.cs");
-                var path = hintName + ".generated.cs";
-                Directory.CreateDirectory(intermediate);
+                var path = Path.Combine(Options.IntermediateOutputPath, hintName + ".generated.cs");
                 File.WriteAllText(path, content, Encoding.UTF8);
             }
         }

@@ -15,11 +15,13 @@
     <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="Type" />
   </ItemGroup>
 
-  <Target Name="RemoveSourceGeneratedFiles" BeforeTargets="CoreCompile">
-    <ItemGroup>
-      <Compile Remove="**/*.generated.cs" />
-    </ItemGroup>
-  </Target>
+  <!-- Fix for IDE to make intellisense working-->
+  <ItemGroup Condition="'$(SourceGenerator_IntellisenseFix)' == 'true'">
+    <Compile Include="$(IntermediateOutputPath)*.generated.cs"
+        Condition="'$(DesignTimeBuild)' == 'true'"
+        Link="%(Filename)%(Extension)"
+        Visible="false" />
+  </ItemGroup>
 
   <!-- Include each nuget reference with property 'LocalSourceGenerators' into final-->
   <Target Name="AddLocalDependencies"
