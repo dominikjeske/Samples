@@ -2,6 +2,8 @@
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Diagnostics;
+using System.IO;
+using System.Text;
 
 namespace HomeCenter.SourceGenerators
 {
@@ -34,6 +36,23 @@ namespace HomeCenter.SourceGenerators
                     Debugger.Launch();
 
             return sourceGenContext;
+        }
+
+        public void ApplyDesignTimeFix(GeneratorExecutionContext context, string content, string hintName)
+        {
+            var includeFix = context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.SourceGenerator_IntellisenseFix", out var raw) &&
+                bool.TryParse(raw, out var value) &&
+                value;
+
+            if (includeFix)
+            {
+                if (!context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.IntermediateOutputPath", out var intermediate))
+                    throw new NotSupportedException();
+
+                var path = Path.Combine(intermediate, hintName + ".ta.g.cs");
+                Directory.CreateDirectory(intermediate);
+                File.WriteAllText(path, content, Encoding.UTF8);
+            }
         }
 
         public GeneratedSource GenerateErrorSourceCode(Exception exception, ClassDeclarationSyntax classDeclaration)

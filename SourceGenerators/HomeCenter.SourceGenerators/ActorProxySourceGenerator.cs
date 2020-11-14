@@ -23,16 +23,19 @@ namespace HomeCenter.SourceGenerators
             using var sourceGenContext = SourceGeneratorContext<ActorProxySourceGenerator>.Create(context);
 
             if (context.SyntaxReceiver is ActorSyntaxReceiver actorSyntaxReciver)
+            {
                 foreach (var proxy in actorSyntaxReciver.CandidateProxies)
                 {
                     var source = GenearteProxy(proxy, sourceGenContext);
 
+                    sourceGenContext.ApplyDesignTimeFix(context, source.SourceCode, source.FileName);
+
                     context.AddSource(source.FileName, SourceText.From(source.SourceCode, Encoding.UTF8));
                 }
+            }
         }
 
-        private GeneratedSource GenearteProxy(ClassDeclarationSyntax proxy,
-            SourceGeneratorContext<ActorProxySourceGenerator> context)
+        private GeneratedSource GenearteProxy(ClassDeclarationSyntax proxy, SourceGeneratorContext<ActorProxySourceGenerator> context)
         {
             try
             {

@@ -10,8 +10,10 @@
         <CompilerVisibleProperty Include="SourceGenerator_EnableLogging" />
         <CompilerVisibleProperty Include="SourceGenerator_DetailedLog" />
         <CompilerVisibleProperty Include="SourceGenerator_EnableDebug" />
+        <CompilerVisibleProperty Include="SourceGenerator_IntellisenseFix" />
+        <CompilerVisibleProperty Include="IntermediateOutputPath" />
 
-        <!--Add SourceGenerator_EnableDebug_XXX where generator name can be used for debug only this generator-->
+      <!--Add SourceGenerator_EnableDebug_XXX where generator name can be used for debug only this generator-->
 
         <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="Type" />
     </ItemGroup>

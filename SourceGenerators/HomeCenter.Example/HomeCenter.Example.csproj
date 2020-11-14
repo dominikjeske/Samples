@@ -5,9 +5,9 @@
     <TargetFramework>net5.0</TargetFramework>
     <!--<LangVersion>preview</LangVersion>-->
     <SourceGenerator_EnableLogging>True</SourceGenerator_EnableLogging>
-    <SourceGenerator_EnableDebug>False</SourceGenerator_EnableDebug>
-    
-
+    <SourceGenerator_EnableDebug>True</SourceGenerator_EnableDebug>
+    <SourceGenerator_DetailedLog>True</SourceGenerator_DetailedLog>
+    <SourceGenerator_IntellisenseFix>True</SourceGenerator_IntellisenseFix>
   </PropertyGroup>
 
   <ItemGroup>
