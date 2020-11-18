@@ -1,0 +1,10 @@
+root = true
+
+[*.cs]
+
+dotnet_diagnostic.IDE0005.severity = warning
+dotnet_diagnostic.SA1507.severity = warning
+dotnet_diagnostic.RCS1036.severity = warning
+
+indent_style = space
+indent_size = 4
