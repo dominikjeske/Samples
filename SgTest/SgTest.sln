@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator", "Generator\Generator.csproj", "{444F774E-DE93-40C2-A2F0-A54E8FF86749}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{FBD982C8-C87D-4911-866C-9635E6F4FCD5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{EA369C5D-9BC4-4D7E-BE82-7F2830F5AE32}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{444F774E-DE93-40C2-A2F0-A54E8FF86749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{444F774E-DE93-40C2-A2F0-A54E8FF86749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{444F774E-DE93-40C2-A2F0-A54E8FF86749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{444F774E-DE93-40C2-A2F0-A54E8FF86749}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBD982C8-C87D-4911-866C-9635E6F4FCD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBD982C8-C87D-4911-866C-9635E6F4FCD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBD982C8-C87D-4911-866C-9635E6F4FCD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBD982C8-C87D-4911-866C-9635E6F4FCD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA369C5D-9BC4-4D7E-BE82-7F2830F5AE32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA369C5D-9BC4-4D7E-BE82-7F2830F5AE32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA369C5D-9BC4-4D7E-BE82-7F2830F5AE32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA369C5D-9BC4-4D7E-BE82-7F2830F5AE32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E5E84C8-6430-4C68-A9B5-3230456F4906}
+	EndGlobalSection
+EndGlobal
