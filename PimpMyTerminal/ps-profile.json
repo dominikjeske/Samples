@@ -1,0 +1,130 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "background": "#ffe9aa",
+          "foreground": "#100e23",
+          "powerline_symbol": "",
+          "style": "powerline",
+          "type": "root"
+        },
+        {
+          "background": "#ffffff",
+          "foreground": "#100e23",
+           "powerline_symbol": "",
+           "style": "powerline",
+          "type": "session"
+        },
+        {
+          "background": "#91ddff",
+          "foreground": "#100e23",
+          "powerline_symbol": "",
+          "properties": {
+            "style": "full"
+          },
+          "style": "powerline",
+          "type": "path"
+        },
+        {
+          "background": "#906cff",
+          "foreground": "#100e23",
+          "powerline_symbol": "",
+          "type": "command",
+          "style": "powerline",
+          "properties": {
+            "shell": "powershell",
+            "prefix": "  ",
+            "command": "dotnet msbuild --version --nologo | ForEach-object { $_.Substring(0,$_.LastIndexOf('.')) } "
+          }
+        },
+        {
+          "type": "envvar",
+          "style": "powerline",
+          "powerline_symbol": "",
+          "foreground": "#ffffff",
+          "background": "#0077c2",
+          "properties": {
+            "var_name": "ASPNETCORE_ENVIRONMENT"
+          }
+        },
+        {
+          "type": "executiontime",
+          "style": "powerline",
+          "powerline_symbol": "\uE0B0",
+          "foreground": "#ffffff",
+          "background": "#8800dd",
+          "properties": {
+            "threshold": 500,
+            "style": "austin",
+            "prefix": " <#fefefe>\ufbab</> "
+          }
+        },
+        {
+          "background": "#95ffa4",
+          "foreground": "#193549",
+          "powerline_symbol": "",
+          "style": "powerline",
+          "type": "git"
+        },
+        {
+          "background": "#906cff",
+          "foreground": "#100e23",
+          "powerline_symbol": "",
+          "properties": {
+            "prefix": "  "
+          },
+          "style": "powerline",
+          "type": "python"
+        },
+        {
+          "background": "#ff8080",
+          "foreground": "#ffffff",
+          "powerline_symbol": "",
+          "properties": {
+            "prefix": " "
+          },
+          "style": "powerline",
+          "type": "exit"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "right",
+      "segments": [
+        {
+          "foreground": "#ffffff",
+          "properties": {
+            "postfix": "]",
+            "prefix": "["
+          },
+          "style": "plain",
+          "type": "time"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "type": "newline"
+    },
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "foreground": "#007ACC",
+          "properties": {
+            "prefix": "",
+            "text": "❯"
+          },
+          "style": "plain",
+          "type": "text"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "final_space": false
+}
